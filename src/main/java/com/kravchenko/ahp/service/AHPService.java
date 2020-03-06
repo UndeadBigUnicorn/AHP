@@ -13,7 +13,7 @@ public class AHPService {
 
     private static final String[] criteriaTitles = new String[] {
             "Range", "Price", "Speed", "Storage",
-            "Comfort", "Charging Speed", "Made in Ukraine"};
+            "Comfort", "Charging Speed"};
 
     private static final String[] alternativesTitles = new String[] {
             "Tesla Model 3", "Nissan Leaf", "HYUNDAI IONIQ", "VW e-Golf"};

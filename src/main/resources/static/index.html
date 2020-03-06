@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/uikit.min.js"></script>
+    <script src="js/uikit-icons.min.js"></script>
+    <link rel="stylesheet" href="css/uikit.min.css">
+</head>
+<body>
+
+<!--    <div class="uk-child-width-12 uk-text-center" uk-grid>-->
+<!--        <div>-->
+<!--            <div class="uk-background-primary uk-light uk-padding uk-panel">-->
+<!--                <p class="uk-h4">Сервіс вибору електромобіля</p>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<div id="hero-section" class="uk-section uk-section-primary uk-flex uk-flex-middle uk-flex-center" uk-height-viewport>
+    <h1 class="uk-heading-hero">Сервіс вибору електромобіля</h1>
+</div>
+
+<div class="uk-container">
+
+    <div class="uk-section uk-section-default" uk-height-viewport>
+
+        <div class="uk-section suk-preserve-color">
+            <div class="uk-container" uk-filter="target: .js-filter">
+                <div class="uk-dark uk-margin-medium">
+                    <div uk-alert>
+                        <p><a uk-toggle="target:#instructions"><span uk-icon="icon:question;ratio:0.8;"></span> Інструкція</a></p>
+                        <ul id="instructions" hidden>
+                            <li><p>Сервіс використовує Метод Аналізу Ієрархій для вибору електромобілю, що найбільше пасує вам.</p></li>
+                            <li><p>Для початку Вам потрібно заповнити матрицю парних порівнянь, використовуючи шкалу відносної важливості.</p></li>
+                                <table class="uk-table">
+                                <caption>Шкала відносної важливості</caption>
+                                <thead>
+                                <tr>
+                                    <th>Якісні характеристика ступеня порівняння</th>
+                                    <th>Числове значення</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>Однакова значимість</td>
+                                    <td>1</td>
+                                </tr>
+                                <tr>
+                                    <td>Слабка значимість</td>
+                                    <td>3</td>
+                                </tr>
+                                <tr>
+                                    <td>Істотна значимість</td>
+                                    <td>5</td>
+                                </tr>
+                                <tr>
+                                    <td>Очевидна значимість</td>
+                                    <td>7</td>
+                                </tr>
+                                <tr>
+                                    <td>Абсолютна значимість</td>
+                                    <td>9</td>
+                                </tr>
+                                <tr>
+                                    <td>Проміжні значення між сусідніми ступенями значимості</td>
+                                    <td>2, 4, 6, 8</td>
+                                </tr>
+                                </tbody>
+                                </table>
+                            <li><p>Після цього програма порахує найліпший варіант для вас.</p></li>
+                        </ul>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="uk-section" uk-scrollspy="cls: uk-animation-fade">
+            <div class="uk-container">
+                <h2>Електромобілі</h2>
+                <div class="uk-child-width-1-2@m" uk-grid>
+                    <div>
+                        <div class="uk-child-width-1-2@m" uk-grid>
+                            <div>
+                                <div class="uk-card uk-card-default">
+                                    <div class="uk-card-media-top">
+                                        <img src="img/tesla-model-3.jpg" alt="Tesla Model 3">
+                                    </div>
+                                    <div class="uk-card-body">
+                                        <h3 class="uk-card-title">Tesla Model 3</h3>
+                                        <p>
+                                            <ul>
+                                                <li>Ціна: від 42 000 &#8364;</li>
+                                                <li>Батарея: 60-75 кВт</li>
+                                                <li>Запас ходу: 520 км</li>
+                                                <li>Швидкість: 250 км/год</li>
+                                                <li>Швидкість зарядки: 6-7 годин пришвидчена зарядка / 40 хв на supercharger</li>
+                                                <li>Багажник: 450 л</li>
+                                            </ul>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="uk-card uk-card-default">
+                                    <div class="uk-card-body">
+                                        <h3 class="uk-card-title">Nissan Leaf</h3>
+                                        <p>
+                                            <ul>
+                                                <li>Ціна: від 28 800 &#8364;</li>
+                                                <li>Батарея: 40 кВт</li>
+                                                <li>Запас ходу: 240 км</li>
+                                                <li>Швидкість: 150 км/год</li>
+                                                <li>Швидкість зарядки: 8 годин пришвидчена зарядка / 40 хв від швидкої зарядки до 80%</li>
+                                                <li>Багажник: 435 л</li>
+                                            </ul>
+                                        </p>
+                                    </div>
+                                    <div class="uk-card-media-bottom">
+                                        <img src="img/nissan-2018.jpg" alt="Nissal Leaf">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="uk-child-width-1-2@m" uk-grid>
+                        <div>
+                            <div class="uk-card uk-card-default">
+                                <div class="uk-card-media-top">
+                                    <img src="img/vw-e-golf.jpg" alt="VW e-Golf">
+                                </div>
+                                <div class="uk-card-body">
+                                    <h3 class="uk-card-title">VW e-Golf</h3>
+                                    <p>
+                                    <ul>
+                                        <li>Ціна: від 36 000 &#8364;</li>
+                                        <li>Батарея: 24 кВт</li>
+                                        <li>Запас ходу: 140 км</li>
+                                        <li>Швидкість: 150 км/год</li>
+                                        <li>Швидкість зарядки: 4-6 годин пришвидчена зарядка / 30-45 хв від швидкої зарядки до 80%</li>
+                                        <li>Багажник: 340 л</li>
+                                    </ul>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="uk-card uk-card-default">
+                                <div class="uk-card-body">
+                                    <h3 class="uk-card-title">Hyundai Ioniq</h3>
+                                    <p>
+                                    <ul>
+                                        <li>Ціна: від 27 000 &#8364;</li>
+                                        <li>Батарея: 28 кВт</li>
+                                        <li>Запас ходу: 190 км</li>
+                                        <li>Швидкість: 160 км/год</li>
+                                        <li>Швидкість зарядки: 5 годин пришвидчена зарядка / 25-30 хв від швидкої зарядки до 80%</li>
+                                        <li>Багажник: 455 л</li>
+                                    </ul>
+                                    </p>
+                                </div>
+                                <div class="uk-card-media-bottom">
+                                    <img src="img/hyundai-ioniq.jpg" alt="Hyundai Ioniq">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
