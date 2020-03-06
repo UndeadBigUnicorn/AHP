@@ -2,23 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Сервіс вибору електромобіля</title>
     <script src="js/uikit.min.js"></script>
     <script src="js/uikit-icons.min.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/index.js"></script>
     <link rel="stylesheet" href="css/uikit.min.css">
 </head>
 <body>
 
-<!--    <div class="uk-child-width-12 uk-text-center" uk-grid>-->
-<!--        <div>-->
-<!--            <div class="uk-background-primary uk-light uk-padding uk-panel">-->
-<!--                <p class="uk-h4">Сервіс вибору електромобіля</p>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-
-<div id="hero-section" class="uk-section uk-section-primary uk-flex uk-flex-middle uk-flex-center" uk-height-viewport>
-    <h1 class="uk-heading-hero">Сервіс вибору електромобіля</h1>
+<div class="uk-section uk-cover-container">
+    <img src="img/charging.jpg" alt="" uk-cover>
+    <div class="uk-container">
+        <div class="uk-width-2-3@m">
+            <div class="uk-position-relative uk-position-z-index">
+                <h1 style="color: white">Сервіс вибору електромобіля</h1>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="uk-container">
@@ -107,16 +108,14 @@
                                 <div class="uk-card uk-card-default">
                                     <div class="uk-card-body">
                                         <h3 class="uk-card-title">Nissan Leaf</h3>
-                                        <p>
-                                            <ul>
-                                                <li>Ціна: від 28 800 &#8364;</li>
-                                                <li>Батарея: 40 кВт</li>
-                                                <li>Запас ходу: 240 км</li>
-                                                <li>Швидкість: 150 км/год</li>
-                                                <li>Швидкість зарядки: 8 годин пришвидчена зарядка / 40 хв від швидкої зарядки до 80%</li>
-                                                <li>Багажник: 435 л</li>
-                                            </ul>
-                                        </p>
+                                        <ul>
+                                            <li>Ціна: від 28 800 &#8364;</li>
+                                            <li>Батарея: 40 кВт</li>
+                                            <li>Запас ходу: 240 км</li>
+                                            <li>Швидкість: 150 км/год</li>
+                                            <li>Швидкість зарядки: 8 годин пришвидчена зарядка / 40 хв від швидкої зарядки до 80%</li>
+                                            <li>Багажник: 435 л</li>
+                                        </ul>
                                     </div>
                                     <div class="uk-card-media-bottom">
                                         <img src="img/nissan-2018.jpg" alt="Nissal Leaf">
@@ -133,7 +132,6 @@
                                 </div>
                                 <div class="uk-card-body">
                                     <h3 class="uk-card-title">VW e-Golf</h3>
-                                    <p>
                                     <ul>
                                         <li>Ціна: від 36 000 &#8364;</li>
                                         <li>Батарея: 24 кВт</li>
@@ -142,7 +140,6 @@
                                         <li>Швидкість зарядки: 4-6 годин пришвидчена зарядка / 30-45 хв від швидкої зарядки до 80%</li>
                                         <li>Багажник: 340 л</li>
                                     </ul>
-                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -150,7 +147,6 @@
                             <div class="uk-card uk-card-default">
                                 <div class="uk-card-body">
                                     <h3 class="uk-card-title">Hyundai Ioniq</h3>
-                                    <p>
                                     <ul>
                                         <li>Ціна: від 27 000 &#8364;</li>
                                         <li>Батарея: 28 кВт</li>
@@ -159,7 +155,6 @@
                                         <li>Швидкість зарядки: 5 годин пришвидчена зарядка / 25-30 хв від швидкої зарядки до 80%</li>
                                         <li>Багажник: 455 л</li>
                                     </ul>
-                                    </p>
                                 </div>
                                 <div class="uk-card-media-bottom">
                                     <img src="img/hyundai-ioniq.jpg" alt="Hyundai Ioniq">
@@ -172,6 +167,62 @@
             </div>
         </div>
     </div>
+
+    <div class="uk-section" uk-scrollspy="cls: uk-animation-fade">
+        <div class="uk-container">
+            <h2>Критерії, за якими буде відбуватися порівняння</h2>
+            <ul id="criteria-list" class="uk-list">
+            </ul>
+            <p uk-margin>
+                <button id="add-criteria" class="uk-button uk-button-primary"><span uk-icon="plus-circle"></span> Додати новий критерій</button>
+            </p>
+        </div>
+    </div>
+
+    <div class="uk-section" uk-scrollspy="cls: uk-animation-fade">
+        <div class="uk-container">
+            <h2>Оцініть відносні переваги критеріїв</h2>
+            <div uk-margin>
+                <table class="uk-table uk-table-responsive">
+                    <tbody>
+                        <tr>
+                            <th>
+                                Критерії
+                            </th>
+                            <th>
+                                Ціна
+                            </th>
+                            <th>
+                                бла бла
+                            </th>
+                            <th>
+                                бла бла бла
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>
+                                Ціна
+                            </th>
+                            <td>
+                                <input class="uk-input uk-form-width-xsmall" type="text" placeholder="" value="1" max="9" min="0" disabled>
+                            </td>
+                            <td>
+                                <input class="uk-input uk-form-width-xsmall" type="text" placeholder="" value="" max="9" min="0">
+                            </td>
+                            <td>
+                                <input class="uk-input uk-form-width-xsmall" type="text" placeholder="" value="" max="9" min="0">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="uk-overflow-auto" uk-margin>
+                <table id="criteria-matrix" class="uk-table uk-table-responsive">
+                </table>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 </body>
