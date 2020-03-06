@@ -16,14 +16,14 @@ public class AHPService {
             "Comfort", "Charging Speed", "Made in Ukraine"};
 
     private static final String[] alternativesTitles = new String[] {
-            "Tesla CyberTruck", "Porsche Taycan", "Nissan Leaf", "ZAZ Lanos Pick-up Electric"};
+            "Tesla Model 3", "Nissan Leaf", "HYUNDAI IONIQ", "VW e-Golf"};
 
-    public AHP solveAHP(AHPRequest request) {
+    public Double[] solveAHP(AHPRequest request) {
         AHP ahp = new AHP(request.getCriteria().length);
         ahp.setCriteria(computeCriteria(request));
         ahp.setAlternatives(computeAlternatives(request));
         ahp.calculatePriorities();
-        return ahp;
+        return ahp.getPriorities();
     }
 
     private PairMatrix computeCriteria(AHPRequest request) {
