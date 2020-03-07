@@ -34,6 +34,7 @@ $(document).ready(() => {
         } else {
             self.removeClass('uk-form-danger');
             let cell = $(`#${tableId}-cell-${opposite}`);
+            cell.removeClass('uk-form-danger');
             let oppositeValue = validInverseValues[validValues.indexOf(value)];
 
             if (validInverseValues.indexOf(value) !== -1) {
@@ -48,6 +49,56 @@ $(document).ready(() => {
     $('#add-criteria').click(() => {
         criteria.push('');
         renderData()
+    });
+
+    $('#submit-matrix').click(() => {
+        // check if all cell have values
+        let invalidCells = $('.matrix-cell').filter((i, el) => {
+            return validValues.indexOf(el.value) === -1 && validInverseValues.indexOf(el.value) === -1;
+        });
+        if (invalidCells.length) {
+            $(invalidCells).each((i, el) => {
+                $(el).addClass('uk-form-danger');
+            });
+            return;
+        }
+
+        let criteriaValues = $('#criteria-matrix .matrix-cell').map((i, el) => {
+            return el.value;
+        });
+
+        let criteriaData = [];
+        let begin = 0,
+            end = criteria.length;
+        while (end <= Math.pow(criteria.length,2)) {
+            criteriaData.push(criteriaValues.slice(begin, end));
+            begin = end;
+            end += criteria.length;
+        }
+
+        let alternativesData = [];
+        for (let i = 0; i < criteria.length; i++) {
+            let alternativesValues = $(`#criteria${i}-matrix .matrix-cell`).map((i, el) => {
+                return el.value;
+            });
+            let alternativesTempData = [];
+            let begin = 0,
+                end = cars.length;
+            while (end <= Math.pow(cars.length,2)) {
+                alternativesTempData.push(alternativesValues.slice(begin, end));
+                begin = end;
+                end += cars.length;
+            }
+
+            alternativesData.push(alternativesTempData);
+
+        }
+
+        let body = {'criteria': criteriaData, 'alternatives': alternativesData};
+
+        $.post('/ahp', body, data => {
+            console.log(data);
+        });
     });
 
     function renderData() {
@@ -78,7 +129,7 @@ $(document).ready(() => {
     function renderTables() {
         // render criteria
         matrixContainer.html(
-        `<div class="uk-container">
+            `<div class="uk-container">
             <h2>Оцініть відносні переваги критеріїв</h2>
             <div class="uk-overflow-auto" uk-margin>
                 <table id="criteria-matrix" class="uk-table uk-table-responsive">
@@ -88,9 +139,9 @@ $(document).ready(() => {
         renderTable('criteria-matrix', 'Критерії', criteria);
 
         // render alternatives per criteria tables
-        for(let i=0; i<criteria.length; i++) {
+        for (let i = 0; i < criteria.length; i++) {
             matrixContainer.append(
-            `<div class="uk-container">
+                `<div class="uk-container">
                 <h2>Оцініть відносні переваги автомобілів за критерієм "${criteria[i]}"</h2>
                 <div class="uk-overflow-auto" uk-margin>
                     <table id="criteria${i}-matrix" class="uk-table uk-table-responsive">
@@ -106,23 +157,23 @@ $(document).ready(() => {
         let row, cell;
 
         // append title first row
-        row = $( '<tr />' );
-        table.append( row );
-        cell = $('<th>'+tableTitle+'</th>')
-        row.append( cell );
+        row = $('<tr />');
+        table.append(row);
+        cell = $('<th>' + tableTitle + '</th>')
+        row.append(cell);
         for (let idx in titles) {
-            cell = $('<th>'+titles[idx]+'</th>')
-            row.append( cell );
+            cell = $('<th>' + titles[idx] + '</th>')
+            row.append(cell);
         }
 
         // other rows
-        for(let i=0; i<titles.length; i++){
-            row = $( '<tr />' );
-            table.append( row );
-            cell = $('<th>'+titles[i]+'</th>');
-            row.append( cell );
+        for (let i = 0; i < titles.length; i++) {
+            row = $('<tr />');
+            table.append(row);
+            cell = $('<th>' + titles[i] + '</th>');
+            row.append(cell);
 
-            for(let j=0; j<titles.length; j++){
+            for (let j = 0; j < titles.length; j++) {
                 let disabled = '';
                 let value = '';
                 if (titles[i] === titles[j]) {
@@ -134,7 +185,7 @@ $(document).ready(() => {
                 cell = $('<td>' +
                     `<input id="${tableId}-cell-${cellId}" class="uk-input uk-form-width-xsmall matrix-cell" type="text" data-opposite="${opposite}" data-table="${tableId}" placeholder="" value="${value}" max="9" min="0"` + disabled + '>'
                     + '</td>');
-                row.append( cell );
+                row.append(cell);
             }
 
         }
