@@ -51,6 +51,15 @@ $(document).ready(() => {
         renderData()
     });
 
+    function parseNumber(val) {
+        if (val.length === 1) {
+            return parseInt(val);
+        } else {
+            let values = val.split('/');
+            return parseFloat((parseInt(values[0])/parseInt(values[1])).toFixed(2));
+        }
+    }
+
     $('#submit-matrix').click(() => {
         // check if all cell have values
         let invalidCells = $('.matrix-cell').filter((i, el) => {
@@ -64,14 +73,19 @@ $(document).ready(() => {
         }
 
         let criteriaValues = $('#criteria-matrix .matrix-cell').map((i, el) => {
-            return el.value;
+            return parseNumber(el.value);
         });
 
         let criteriaData = [];
         let begin = 0,
             end = criteria.length;
         while (end <= Math.pow(criteria.length,2)) {
-            criteriaData.push(criteriaValues.slice(begin, end));
+            let iterator = criteriaValues.slice(begin, end);
+            let data = [];
+            for (let value of iterator) {
+                data.push(value);
+            }
+            criteriaData.push(data);
             begin = end;
             end += criteria.length;
         }
@@ -79,13 +93,18 @@ $(document).ready(() => {
         let alternativesData = [];
         for (let i = 0; i < criteria.length; i++) {
             let alternativesValues = $(`#criteria${i}-matrix .matrix-cell`).map((i, el) => {
-                return el.value;
+                return parseNumber(el.value);
             });
             let alternativesTempData = [];
             let begin = 0,
                 end = cars.length;
             while (end <= Math.pow(cars.length,2)) {
-                alternativesTempData.push(alternativesValues.slice(begin, end));
+                let iterator = alternativesValues.slice(begin, end);
+                let data = [];
+                for (let value of iterator) {
+                    data.push(value);
+                }
+                alternativesTempData.push(data);
                 begin = end;
                 end += cars.length;
             }
@@ -96,8 +115,20 @@ $(document).ready(() => {
 
         let body = {'criteria': criteriaData, 'alternatives': alternativesData};
 
-        $.post('/ahp', body, data => {
-            console.log(data);
+        $.ajax({
+            url: '/ahp',
+            headers: {
+                'Content-Type':'application/json'
+            },
+            method: 'POST',
+            dataType: 'json',
+            data: JSON.stringify(body),
+            success: function(data){
+                console.log('succes: '+data);
+            },
+            error: function(err) {
+                console.log(err);
+            }
         });
     });
 
