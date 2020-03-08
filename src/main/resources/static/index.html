@@ -171,8 +171,7 @@
     <div class="uk-section" uk-scrollspy="cls: uk-animation-fade">
         <div class="uk-container">
             <h2>Критерії, за якими буде відбуватися порівняння</h2>
-            <ul id="criteria-list" class="uk-list">
-            </ul>
+            <ul id="criteria-list" class="uk-list"></ul>
 <!--            <p uk-margin>-->
 <!--                <button id="add-criteria" class="uk-button uk-button-primary"><span uk-icon="plus-circle"></span> Додати новий критерій</button>-->
 <!--            </p>-->
@@ -180,10 +179,13 @@
     </div>
 
     <div class="uk-section" uk-scrollspy="cls: uk-animation-fade">
-        <div id="matrix-container">
-        </div>
+        <div id="matrix-container"></div>
         <p uk-margin>
             <button id="submit-matrix" class="uk-button uk-button-primary"><span uk-icon="bolt"></span> Отримати результат</button>
+        </p>
+        <p uk-margin>
+            <div id="loader" uk-spinner></div>
+            <div id="result"></div>
         </p>
     </div>
 

@@ -7,6 +7,9 @@ $(document).ready(() => {
 
     const criteriaList = $('#criteria-list');
     const matrixContainer = $('#matrix-container');
+    const resultContainer = $('#result');
+    const loader = $('#loader');
+    loader.hide();
 
     renderData();
 
@@ -65,12 +68,12 @@ $(document).ready(() => {
         let invalidCells = $('.matrix-cell').filter((i, el) => {
             return validValues.indexOf(el.value) === -1 && validInverseValues.indexOf(el.value) === -1;
         });
-        if (invalidCells.length) {
-            $(invalidCells).each((i, el) => {
-                $(el).addClass('uk-form-danger');
-            });
-            return;
-        }
+        // if (invalidCells.length) {
+        //     $(invalidCells).each((i, el) => {
+        //         $(el).addClass('uk-form-danger');
+        //     });
+        //     return;
+        // }
 
         let criteriaValues = $('#criteria-matrix .matrix-cell').map((i, el) => {
             return parseNumber(el.value);
@@ -115,6 +118,9 @@ $(document).ready(() => {
 
         let body = {'criteria': criteriaData, 'alternatives': alternativesData};
 
+        loader.show();
+        // let data = [0.33094782639519454,0.32941433193306024,0.3290367433563707,0.33393636093557855];
+
         $.ajax({
             url: '/ahp',
             headers: {
@@ -124,7 +130,23 @@ $(document).ready(() => {
             dataType: 'json',
             data: JSON.stringify(body),
             success: function(data){
-                console.log('succes: '+data);
+                loader.hide();
+                let carsRating = [];
+                for (let i = 0; i < cars.length; i++) {
+                    carsRating.push({'car': cars[i], 'rating': data[i]});
+                }
+                carsRating.sort((a, b) => {
+                    return a.rating + b.rating;
+                });
+
+                let html = `<div class="uk-container" uk-scrollspy="cls: uk-animation-fade">
+                    <h2>Результати</h2>
+                    <ul class="uk-list">`;
+                for (let i = 0; i < carsRating.length; i++) {
+                    html += `<li>${i+1}. ${carsRating[i].car} - ${carsRating[i].rating.toFixed(2)} % </li>`;
+                }
+                html += `</ul></div>`;
+                resultContainer.html(html);
             },
             error: function(err) {
                 console.log(err);
