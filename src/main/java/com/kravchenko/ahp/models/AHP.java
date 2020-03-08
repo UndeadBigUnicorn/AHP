@@ -1,24 +1,20 @@
 package com.kravchenko.ahp.models;
 
+import com.kravchenko.ahp.service.MatrixOperations;
+
 import java.util.Arrays;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class AHP {
-
-    private int dimensions;
 
     private PairMatrix criteria;
     private PairMatrix[] alternatives;
     private Double[] priorities;
 
-    public AHP(int dimensions) {
-        assert dimensions > 0;
-        this.dimensions = dimensions;
-    }
-
-    public int getDimensions() {
-        return dimensions;
+    public AHP(PairMatrix criteria, PairMatrix[] alternatives) {
+        this.criteria = criteria;
+        this.alternatives = alternatives;
+        calculatePriorities();
     }
 
     public PairMatrix getCriteria() {
@@ -46,12 +42,14 @@ public class AHP {
     }
 
     public void calculatePriorities() {
-        this.priorities = Arrays.stream(this.alternatives)
-                .map(alternative -> IntStream.range(0, this.dimensions)
-                    .mapToDouble(idx -> alternative.getEigenVector()[idx] * this.criteria.getEigenVector()[idx])
-                    .reduce(0.00, Double::sum)
-                ).collect(Collectors.toList())
-                .toArray(Double[]::new);
+        Double[][] criteria = new Double[][] {this.criteria.getEigenVector()};
+        criteria = MatrixOperations.transposeMatrix(criteria);
+        Double[][] alternatives = Arrays.stream(this.alternatives)
+                .map(PairMatrix::getEigenVector)
+                .collect(Collectors.toList())
+                .toArray(Double[][]::new);
+        Double[][] result = MatrixOperations.transposeMatrix(MatrixOperations.multiplyMatrices(alternatives, criteria));
+        this.priorities = result[0];
     }
 
 

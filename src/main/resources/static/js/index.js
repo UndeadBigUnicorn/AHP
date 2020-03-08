@@ -1,6 +1,6 @@
 $(document).ready(() => {
 
-    const criteria = ["Ціна", "Запас ходу", "Швидкість", "Зарядки", "Вмісткість", "Комфорт"];
+    const criteria = ["Ціна", "Запас ходу", "Швидкість", "Зарядка"];
     const cars = ["Tesla Model 3", "Nissan Leaf", "VW e-Golf", "Hyundai Ioniq"];
     const validValues = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
     const validInverseValues = ["1", "1/2", "1/3", "1/4", "1/5", "1/6", "1/7", "1/8", "1/9"];
@@ -146,7 +146,7 @@ $(document).ready(() => {
                         <label class="uk-form-label" for="criteria${index}">${index}.</label>
                         <div class="uk-form-controls uk-width-1-4@l uk-width-1-2@s">
                             <div class="uk-inline">
-                                <a class="uk-form-icon uk-form-icon-flip criteria-delete" href="javascript:void(0);" data-index="${index}" uk-icon="icon: close"></a>
+<!--                                <a class="uk-form-icon uk-form-icon-flip criteria-delete" href="javascript:void(0);" data-index="${index}" uk-icon="icon: close"></a>-->
                                 <input class="uk-input uk-form-blank criteria-input" id="criteria${index}" type="text" value="${criteria}" data-index="${index}" placeholder="Критерій ${index}">
                             </div>
                         </div>

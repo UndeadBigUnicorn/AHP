@@ -5,7 +5,6 @@ import com.kravchenko.ahp.service.MatrixOperations;
 public class PairMatrix {
 
     private Double[][] values;
-    private String[] titles;
     private Double[] eigenVector;
     private Double maxEigenValue;
 
@@ -15,14 +14,6 @@ public class PairMatrix {
 
     public void setValues(Double[][] values) {
         this.values = values;
-    }
-
-    public String[] getTitles() {
-        return titles;
-    }
-
-    public void setTitles(String[] titles) {
-        this.titles = titles;
     }
 
     public Double[] getEigenVector() {
@@ -47,10 +38,4 @@ public class PairMatrix {
         this.maxEigenValue = MatrixOperations.maxEigenValue(values, this.eigenVector);
     }
 
-    public PairMatrix(Double[][] values, String[] titles) {
-        this.values = values;
-        this.titles = titles;
-        this.eigenVector = MatrixOperations.eigenVector(values);
-        this.maxEigenValue = MatrixOperations.maxEigenValue(values, this.eigenVector);
-    }
 }
