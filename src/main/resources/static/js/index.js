@@ -119,7 +119,7 @@ $(document).ready(() => {
         let body = {'criteria': criteriaData, 'alternatives': alternativesData};
 
         loader.show();
-        // let data = [0.33094782639519454,0.32941433193306024,0.3290367433563707,0.33393636093557855];
+        // let data = [0.43094782639519454,0.45941433193306024,0.3290367433563707,0.33393636093557855];
 
         $.ajax({
             url: '/ahp',
@@ -136,14 +136,14 @@ $(document).ready(() => {
                     carsRating.push({'car': cars[i], 'rating': data[i]});
                 }
                 carsRating.sort((a, b) => {
-                    return a.rating + b.rating;
+                    return b.rating - a.rating;
                 });
 
                 let html = `<div class="uk-container" uk-scrollspy="cls: uk-animation-fade">
                     <h2>Результати</h2>
                     <ul class="uk-list">`;
                 for (let i = 0; i < carsRating.length; i++) {
-                    html += `<li>${i+1}. ${carsRating[i].car} - ${carsRating[i].rating.toFixed(2)} % </li>`;
+                    html += `<li>${i+1}. ${carsRating[i].car} </li>`;
                 }
                 html += `</ul></div>`;
                 resultContainer.html(html);
