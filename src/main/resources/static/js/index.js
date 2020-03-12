@@ -1,6 +1,6 @@
 $(document).ready(() => {
 
-    const criteria = ["Ціна", "Запас ходу", "Швидкість", "Зарядка"];
+    const criteria = ["Ціна", "Запас ходу", "Швидкість", "Зарядка", "Вмісткість", "Комфорт"];
     const cars = ["Tesla Model 3", "Nissan Leaf", "VW e-Golf", "Hyundai Ioniq"];
     const validValues = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
     const validInverseValues = ["1", "1/2", "1/3", "1/4", "1/5", "1/6", "1/7", "1/8", "1/9"];
@@ -68,12 +68,12 @@ $(document).ready(() => {
         let invalidCells = $('.matrix-cell').filter((i, el) => {
             return validValues.indexOf(el.value) === -1 && validInverseValues.indexOf(el.value) === -1;
         });
-        // if (invalidCells.length) {
-        //     $(invalidCells).each((i, el) => {
-        //         $(el).addClass('uk-form-danger');
-        //     });
-        //     return;
-        // }
+        if (invalidCells.length) {
+            $(invalidCells).each((i, el) => {
+                $(el).addClass('uk-form-danger');
+            });
+            return;
+        }
 
         let criteriaValues = $('#criteria-matrix .matrix-cell').map((i, el) => {
             return parseNumber(el.value);
@@ -119,7 +119,6 @@ $(document).ready(() => {
         let body = {'criteria': criteriaData, 'alternatives': alternativesData};
 
         loader.show();
-        // let data = [0.43094782639519454,0.45941433193306024,0.3290367433563707,0.33393636093557855];
 
         $.ajax({
             url: '/ahp',
@@ -143,7 +142,7 @@ $(document).ready(() => {
                     <h2>Результати</h2>
                     <ul class="uk-list">`;
                 for (let i = 0; i < carsRating.length; i++) {
-                    html += `<li>${i+1}. ${carsRating[i].car} </li>`;
+                    html += `<li>${i+1}. ${carsRating[i].car} - ${carsRating[i].rating.toFixed(2)} % </li>`;
                 }
                 html += `</ul></div>`;
                 resultContainer.html(html);
@@ -168,7 +167,7 @@ $(document).ready(() => {
                         <label class="uk-form-label" for="criteria${index}">${index}.</label>
                         <div class="uk-form-controls uk-width-1-4@l uk-width-1-2@s">
                             <div class="uk-inline">
-<!--                                <a class="uk-form-icon uk-form-icon-flip criteria-delete" href="javascript:void(0);" data-index="${index}" uk-icon="icon: close"></a>-->
+                                <a class="uk-form-icon uk-form-icon-flip criteria-delete" href="javascript:void(0);" data-index="${index}" uk-icon="icon: close"></a>
                                 <input class="uk-input uk-form-blank criteria-input" id="criteria${index}" type="text" value="${criteria}" data-index="${index}" placeholder="Критерій ${index}">
                             </div>
                         </div>
