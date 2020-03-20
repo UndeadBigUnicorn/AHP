@@ -12,7 +12,7 @@ import java.util.List;
 public class AhpCommandLineRunner implements CommandLineRunner {
 
     private final static double tau = 1.2;
-    private final static int maxGrade = 30;
+    private final static int maxGrade = 100;
 
     private final static Double[][] pairMatrixWithDefaultScale = new Double[][]{{1.00, 3.00, 5.00}, {0.33, 1.00, 3.00}, {0.25, 0.33, 1.00}};
     private final static String[][] stringPairMatrixWithDefaultScale = new String[][]{{"1", "3", "5"}, {"1/3", "1", "3"}, {"1/5", "1/3", "1"}};
@@ -56,7 +56,8 @@ public class AhpCommandLineRunner implements CommandLineRunner {
         double maxRating = students.get(0).getRating();
         students.forEach(s -> s.setGrade((int) ((s.getRating() / maxRating) * maxGrade)));
 
-        System.out.println("Grades for each student: \n" + students);
+        System.out.println("Grades for each student: \n");
+        students.forEach(System.out::println);
     }
 
     private class Student {
