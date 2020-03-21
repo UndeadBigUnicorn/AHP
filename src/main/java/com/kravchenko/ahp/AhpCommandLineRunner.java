@@ -11,13 +11,15 @@ import java.util.List;
 @Component
 public class AhpCommandLineRunner implements CommandLineRunner {
 
-    private final static double tau = 1.2;
+    private final static double tau1 = 1.2;
+    private final static double tau2 = 1.4;
     private final static int maxGrade = 100;
 
     private final static Double[][] pairMatrixWithDefaultScale = new Double[][]{{1.00, 3.00, 5.00}, {0.33, 1.00, 3.00}, {0.25, 0.33, 1.00}};
     private final static String[][] stringPairMatrixWithDefaultScale = new String[][]{{"1", "3", "5"}, {"1/3", "1", "3"}, {"1/5", "1/3", "1"}};
 
-    private final static Double[][] pairMatrixWithTauScale = new Double[][]{{1.00, tau, Math.pow(tau, 2)}, {1.00/tau, 1.00, tau }, {1.00/Math.pow(tau,2), 1.00/tau, 1.00}};
+    private final static Double[][] pairMatrixWithTau1Scale = new Double[][]{{1.00, tau1, Math.pow(tau1, 2)}, {1.00/tau1, 1.00, tau1 }, {1.00/Math.pow(tau1, 2), 1.00/tau1, 1.00}};
+    private final static Double[][] pairMatrixWithTau2Scale = new Double[][]{{1.00, tau2, Math.pow(tau2, 2)}, {1.00/tau2, 1.00, tau2 }, {1.00/Math.pow(tau2, 2), 1.00/tau2, 1.00}};
     private final static String[][] stringPairMatrixWithTauScale = new String[][]{{"1", "τ", "τ^2"}, {"1/τ", "1", "τ"}, {"1/τ^2", "1/τ", "1"}};
 
     @Override
@@ -31,15 +33,24 @@ public class AhpCommandLineRunner implements CommandLineRunner {
 
         System.out.println("\n" + "-".repeat(50) + "\n");
 
+        System.out.println("Matrix with custom 'τ = 1.4' constant value:");
+        printNiceMatrix(stringPairMatrixWithTauScale);
+        Double[] eigenVectorWithTau2Scale = MatrixOperations.eigenVector(pairMatrixWithTau2Scale);
+        System.out.println("Eigen Vector for the given pair matrix : \n" + Arrays.toString(eigenVectorWithTau2Scale));
+        printGrades(eigenVectorWithTau2Scale);
+
+        System.out.println("\n" + "-".repeat(50) + "\n");
+
         System.out.println("Matrix with custom 'τ = 1.2' constant value:");
         printNiceMatrix(stringPairMatrixWithTauScale);
-        Double[] eigenVectorWithTauScale = MatrixOperations.eigenVector(pairMatrixWithTauScale);
-        System.out.println("Eigen Vector for the given pair matrix : \n" + Arrays.toString(eigenVectorWithTauScale));
-        printGrades(eigenVectorWithTauScale);
+        Double[] eigenVectorWithTau1Scale = MatrixOperations.eigenVector(pairMatrixWithTau1Scale);
+        System.out.println("Eigen Vector for the given pair matrix : \n" + Arrays.toString(eigenVectorWithTau1Scale));
+        printGrades(eigenVectorWithTau1Scale);
+
     }
 
     private void printNiceMatrix(String[][] matrix) {
-        for (String[] row : matrix) {
+        for (var row : matrix) {
             System.out.println(Arrays.toString(row));
         }
     }
@@ -56,7 +67,7 @@ public class AhpCommandLineRunner implements CommandLineRunner {
         double maxRating = students.get(0).getRating();
         students.forEach(s -> s.setGrade((int) ((s.getRating() / maxRating) * maxGrade)));
 
-        System.out.println("Grades for each student: \n");
+        System.out.println("Grades for each student:");
         students.forEach(System.out::println);
     }
 
